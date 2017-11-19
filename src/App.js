@@ -24,19 +24,19 @@ const PHRASES = {
     title: 'It is fucking clear, mate!',
     subtitle: 'Fuck yeah!',
     highlight: 'fucking',
-    color: 'blue',
+    color: 'cornflowerblue',
   },
   Rain: {
     title: 'It is fucking raining',
     subtitle: 'Fuck this shit',
     highlight: 'fucking',
-    color: 'grey',
+    color: 'teal',
   },
   Thunderstorm: {
     title: 'This is fucking scary man!',
     subtitle: 'Lightning bolt!',
     highlight: 'fucking',
-    color: 'black',
+    color: 'midnightblue',
   },
   Clouds: {
     title: 'Cloud storage limit reached',
@@ -48,13 +48,13 @@ const PHRASES = {
     title: 'Brain fucking freeze',
     subtitle: "You ain't supposed to eat it",
     highlight: 'fucking',
-    color: 'grey',
+    color: 'skyblue',
   },
   Drizzle: {
     title: "Meh... don't even ask",
     subtitle: 'What did I just say?',
     highlight: 'Meh',
-    color: 'grey',
+    color: 'darkseagreen',
   },
   Haze: {
     title: "It's fucking hazy, mate!",
