@@ -8,6 +8,7 @@ export const fetchWeather = (latitute, longigute) => {
     .then(res => res.json())
     .then(json => ({
       temperature: Math.round(json.main.temp),
-      weather: json.weather[0].main
+      weather: json.weather[0].main,
+      place: json.name,
     }));
 };

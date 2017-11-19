@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { fetchWeather } from './weatherAPI';
 
@@ -68,7 +68,9 @@ class App extends React.Component {
 
   state = {
     temperature: 0,
+    place: '',
     weather: 'Default',
+    loading: true,
   };
 
   componentDidMount() {
@@ -79,9 +81,9 @@ class App extends React.Component {
     navigator.geolocation.getCurrentPosition(
       data => {
         fetchWeather(data.coords.latitude, data.coords.longitude)
-          .then(({ temperature, weather }) => {
-            console.log({ temperature, weather });
-            this.setState({ temperature, weather });
+          .then((state) => {
+            console.log(state);
+            this.setState({ ...state, loading: false });
           });
       },
       error => console.log(error),
@@ -94,19 +96,19 @@ class App extends React.Component {
       case 'Default':
         return <Text>Fetching the <Text style={styles.highlight}>fucking</Text> weather...</Text>;
       case 'Clear':
-        return <Text>It is fucking clear, mate!</Text>;
+        return <Text>It is <Text style={styles.highlight}>fucking</Text> clear, mate!</Text>;
       case 'Rain':
-        return <Text>It is fucking raining</Text>;
+        return <Text>It is <Text style={styles.highlight}>fucking</Text> raining</Text>;
       case 'Thunderstorm':
-        return <Text>This is fucking scary man!</Text>;
+        return <Text>This is <Text style={styles.highlight}>fucking</Text> scary man!</Text>;
       case 'Clouds':
-        return <Text>Cloud storage limit reached</Text>;
+        return <Text>Cloud storage <Text style={styles.highlight}>limit</Text> reached</Text>;
       case 'Snow':
-        return <Text>Brain fucking freeze</Text>;
+        return <Text>Brain <Text style={styles.highlight}>fucking</Text> freeze</Text>;
       case 'Drizzle':
-        return <Text>Meh... don't even ask</Text>;
+        return <Text>Meh... <Text style={styles.highlight}>don't</Text> even ask</Text>;
       case 'Haze':
-        return <Text>It's fucking hazy, mate!</Text>
+        return <Text>It's <Text style={styles.highlight}>fucking</Text> hazy, mate!</Text>;
       default:
         return <Text>ERROR</Text>;
     }
@@ -115,12 +117,16 @@ class App extends React.Component {
   render() {
     return (
       <View style={[styles.container, { backgroundColor: PHRASES[this.state.weather].color }]}>
-        <StatusBar hidden />
         <View style={styles.header}>
           <Icon name={ICON_NAMES[this.state.weather]} size={60} color="white" />
           <Text style={styles.temperature}>{this.state.temperature}°</Text>
         </View>
         <View style={styles.body}>
+          {/* loading */}
+          <View style={{ alignItems: 'stretch' }}>
+            <ActivityIndicator animating={this.state.loading} color="white" size="large" />
+          </View>
+          <Text style={styles.place}>{this.state.place}</Text>
           <Text style={styles.title}>
             {this.renderTitle()}
           </Text>
@@ -146,6 +152,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 30,
     paddingRight: 30,
+  },
+  place: {
+    fontFamily: 'HelveticaNeue',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'white',
   },
   body: {
     flex: 5,
