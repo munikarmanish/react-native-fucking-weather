@@ -18,36 +18,43 @@ const PHRASES = {
     title: 'It is fucking clear, mate!',
     subtitle: 'Fuck yeah!',
     highlight: 'fucking',
+    color: 'blue',
   },
   Rain: {
     title: 'It is fucking raining',
     subtitle: 'Fuck this shit',
     highlight: 'fucking',
+    color: 'grey',
   },
   Thunderstorm: {
     title: 'This is fucking scary man!',
     subtitle: 'Lightning bolt!',
     highlight: 'fucking',
+    color: 'black',
   },
   Clouds: {
     title: 'Cloud storage limit reached',
     subtitle: 'Error: 500 Cirrocumulus',
     highlight: 'limit',
+    color: 'grey',
   },
   Snow: {
     title: 'Brain fucking freeze',
     subtitle: "You ain't supposed to eat it",
     highlight: 'fucking',
+    color: 'grey',
   },
   Drizzle: {
     title: "Meh... don't even ask",
     subtitle: 'What did I just say?',
     highlight: 'Meh',
+    color: 'grey',
   },
   Haze: {
     title: "It's fucking hazy, mate!",
     subtitle: "I don't give a fuck!",
     highlight: 'fucking',
+    color: 'green',
   },
 };
 
@@ -78,7 +85,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: PHRASES[this.state.weather].color }]}>
         <StatusBar hidden />
         <View style={styles.header}>
           <Icon name={ICON_NAMES[this.state.weather]} size={60} color="white" />
