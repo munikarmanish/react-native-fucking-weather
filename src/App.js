@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { fetchWeather } from './weatherAPI';
 
 const ICON_NAMES = {
+  Default: 'timer-sand',
   Clear: 'weather-sunny',
   Rain: 'weather-pouring',
   Thunderstorm: 'weather-lightning',
@@ -14,6 +15,11 @@ const ICON_NAMES = {
 };
 
 const PHRASES = {
+  Default: {
+    title: 'Fetching the fucking weather...',
+    subtitle: 'Have fucking patience',
+    color: 'black',
+  },
   Clear: {
     title: 'It is fucking clear, mate!',
     subtitle: 'Fuck yeah!',
@@ -62,7 +68,7 @@ class App extends React.Component {
 
   state = {
     temperature: 0,
-    weather: 'Clear',
+    weather: 'Default',
   };
 
   componentDidMount() {
@@ -83,6 +89,29 @@ class App extends React.Component {
     );
   }
 
+  renderTitle() {
+    switch (this.state.weather) {
+      case 'Default':
+        return <Text>Fetching the <Text style={styles.highlight}>fucking</Text> weather...</Text>;
+      case 'Clear':
+        return <Text>It is fucking clear, mate!</Text>;
+      case 'Rain':
+        return <Text>It is fucking raining</Text>;
+      case 'Thunderstorm':
+        return <Text>This is fucking scary man!</Text>;
+      case 'Clouds':
+        return <Text>Cloud storage limit reached</Text>;
+      case 'Snow':
+        return <Text>Brain fucking freeze</Text>;
+      case 'Drizzle':
+        return <Text>Meh... don't even ask</Text>;
+      case 'Haze':
+        return <Text>It's fucking hazy, mate!</Text>
+      default:
+        return <Text>ERROR</Text>;
+    }
+  }
+
   render() {
     return (
       <View style={[styles.container, { backgroundColor: PHRASES[this.state.weather].color }]}>
@@ -93,7 +122,7 @@ class App extends React.Component {
         </View>
         <View style={styles.body}>
           <Text style={styles.title}>
-            {PHRASES[this.state.weather].title}
+            {this.renderTitle()}
           </Text>
           <Text style={styles.subtitle}>
             {PHRASES[this.state.weather].subtitle}
@@ -142,6 +171,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  highlight: { color: 'red' },
 });
 
 export default App;
